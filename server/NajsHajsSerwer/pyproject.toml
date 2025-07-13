@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "najshajsserwer"
+version = "0.1.0"
+description = ""
+authors = ["maxwell"]
+#packages = [
+#    { include = "najshajsserwer" },
+#]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.6"
+djangorestframework = "^3.15.1"
+envdir = "^1.0.1"
+djangorestframework-camel-case = "^1.4.2"
+drf-nested-routers = "^0.94.1"
+drf-spectacular = {extras = ["sidecar"], version = "^0.28.0"}
+django-admin-sortable2 = "^2.2.1"
+django-allauth = "65.8.1"
+django-cors-headers = "^4.3.1"
+django-extensions = "^4.1"
+django-filter = "^25.1"
+django-mail-templated = "^2.6.5"
+pip = "^25.1.0"
+psycopg2 = "^2.9.9"
+python-dotenv = "^1.0.1"
+pyyaml = "^6.0.1"
+setuptools = "==80.8.0"
+poetry-core = ">=2.0.0,<3.0.0"
+opencv-python = "^4.11.0.86"
+joblib = "^1.5.1"
+keras = "^3.10.0"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
