@@ -12,7 +12,7 @@ from PIL import Image
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 sys.path.append(project_root)
 
-from models.V2.classify import perform_classification, perform_classification_on_image
+from server.NajsHajsSerwer.najshajsserwer.models.V2.classify import perform_classification, perform_classification_on_image
 
 @csrf_exempt
 def upload_image(request):

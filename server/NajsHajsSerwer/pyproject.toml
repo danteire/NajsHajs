@@ -30,6 +30,9 @@ poetry-core = ">=2.0.0,<3.0.0"
 opencv-python = "^4.11.0.86"
 joblib = "^1.5.1"
 keras = "^3.10.0"
+pillow = "^11.3.0"
+torch = "^2.7.1"
+torchvision = "^0.22.1"
 
 
 [build-system]
