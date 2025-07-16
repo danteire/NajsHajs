@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UploadPage from './UploadPage';
 import ResultsPage from './ResultPage';
+import MenuPage from "./components/MenuPage";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
           <Routes>
             <Route path="/" element={<UploadPage />} />
             <Route path="/results" element={<ResultsPage />} />
-              <Route path="/menu" element={}
+            <Route path="/menu" element={<MenuPage />} />
           </Routes>
         </div>
       </Router>
