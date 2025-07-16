@@ -13,6 +13,10 @@ function UploadPage() {
         setError(null); // Wyczyść poprzednie błędy
     };
 
+    const handleGoToMenu = () => {
+    navigate('/menu');
+    };
+
 
     // Funkcja wysyłająca plik na serwer
     const handleUpload = async () => {
@@ -99,7 +103,8 @@ function UploadPage() {
                      hover:file:bg-violet-100 mb-4"
                 />
                 {selectedFile && (
-                    <p className="text-gray-700 mb-4">Wybrany plik: <span className="font-semibold">{selectedFile.name}</span></p>
+                    <p className="text-gray-700 mb-4">Wybrany plik: <span
+                        className="font-semibold">{selectedFile.name}</span></p>
                 )}
                 {error && (
                     <p className="text-red-600 mb-4 font-medium">{error}</p>
@@ -115,6 +120,14 @@ function UploadPage() {
                     }`}
                 >
                     {uploading ? 'Wysyłanie...' : 'Wyślij'}
+                </button>
+                <button
+                    onClick={handleGoToMenu}
+                    className="mt-4 w-full py-3 px-6 rounded-lg text-white font-bold text-lg
+      bg-gray-600 hover:bg-gray-700 active:bg-gray-800
+      focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                >
+                    Menu
                 </button>
             </div>
         </div>

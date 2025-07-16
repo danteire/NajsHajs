@@ -10,6 +10,7 @@ function App() {
           <Routes>
             <Route path="/" element={<UploadPage />} />
             <Route path="/results" element={<ResultsPage />} />
+              <Route path="/menu" element={}
           </Routes>
         </div>
       </Router>
