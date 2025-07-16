@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import UploadPage from './UploadPage';
 import ResultsPage from './ResultPage';
 import MenuPage from "./components/MenuPage";
 
@@ -9,9 +8,9 @@ function App() {
       <Router>
         <div style={{ padding: '20px', textAlign: 'center' }}>
           <Routes>
-            <Route path="/" element={<UploadPage />} />
+            {/*<Route path="/" element={<UploadPage />} />*/}
             <Route path="/results" element={<ResultsPage />} />
-            <Route path="/menu" element={<MenuPage />} />
+            <Route path="/" element={<MenuPage />} />
           </Routes>
         </div>
       </Router>

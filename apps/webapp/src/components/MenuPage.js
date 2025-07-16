@@ -6,6 +6,8 @@ import MainContent from './MainContent';
 import RecognitionPanel from './RecognitionPanel';
 import GlobalStyles from './GlobalStyles';
 
+import UploadPage from "../UploadPage";
+
 const AppContainer = styled.div`
   display: flex;
   width: 1200px;
@@ -19,7 +21,7 @@ const AppContainer = styled.div`
 function MenuPage() {
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyles/>
       <AppContainer>
         <Sidebar />
         <MainContent />
