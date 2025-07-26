@@ -19,8 +19,8 @@ function UploadPage() {
 
 
     // Funkcja wysyłająca plik na serwer
+    // Funkcja wysyłająca plik na serwer
     const handleUpload = async () => {
-        // Sprawdź, czy plik został wybrany
         if (!selectedFile) {
             setError("Proszę wybrać plik.");
             return;
@@ -29,63 +29,51 @@ function UploadPage() {
         setUploading(true);
         setError(null);
 
-        // FileReader do odczytu pliku jako base64
-        const reader = new FileReader();
+        try {
+            // Tworzymy FormData i dodajemy plik
+            const formData = new FormData();
+            formData.append("file", selectedFile); // klucz "file" musi się zgadzać z backendem
 
-        reader.onloadend = async () => {
-            // Wynik reader.result to Data URL (np. "data:image/jpeg;base64,...")
-            // Musimy usunąć prefiks "data:image/jpeg;base64," aby wysłać tylko czysty base64
-            const base64Image = reader.result.split(',')[1];
+            // Wysyłamy żądanie POST z FormData (bez ręcznego ustawiania Content-Type!)
+            const response = await fetch('http://127.0.0.1:8000/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
 
-            try {
-                // Przygotowanie danych do wysłania w formacie JSON
-                // Backend oczekuje klucza 'image' z wartością base64
-                const payload = JSON.stringify({ image: base64Image });
-
-                // Wykonanie żądania POST do serwera
-                const response = await fetch('http://127.0.0.1:8000/api/upload', {
-                    method: 'POST',
-                    headers: {
-                        // Ważne: ustawienie nagłówka Content-Type na application/json
-                        'Content-Type': 'application/json',
-                    },
-                    body: payload, // Wysyłamy przygotowany JSON
-                });
-
-                // Obsługa odpowiedzi z serwera
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Wystąpił błąd podczas wysyłania zdjęcia.');
-                }
-
-                const data = await response.json();
-                console.log('Odpowiedź serwera:', data);
-
-                // Przekierowanie na stronę z wynikami i przekazanie danych
-                navigate('/results', {
-                    state: {
-                        serverResponses: data,
-                        originalImageBase64: base64Image // Dodaj przeskalowany obraz w base64
-                    }
-                });
-
-            } catch (err) {
-                console.error('Błąd wysyłania:', err);
-                setError(err.message || 'Nie udało się wysłać zdjęcia.');
-            } finally {
-                setUploading(false);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Wystąpił błąd podczas wysyłania zdjęcia.');
             }
-        };
 
-        // Obsługa błędów odczytu pliku
-        reader.onerror = () => {
-            setError("Nie udało się odczytać pliku.");
+            const data = await response.json();
+            console.log('Odpowiedź serwera:', data);
+
+            // Przekierowanie na stronę z wynikami i przekazanie danych
+            const base64Image = await toBase64(selectedFile); // tylko do wyświetlenia na results
+            navigate('/results', {
+                state: {
+                    serverResponses: data,
+                    originalImageBase64: base64Image
+                }
+            });
+
+        } catch (err) {
+            console.error('Błąd wysyłania:', err);
+            setError(err.message || 'Nie udało się wysłać zdjęcia.');
+        } finally {
             setUploading(false);
-        };
-
-        // Rozpoczęcie odczytu pliku jako Data URL (base64)
-        reader.readAsDataURL(selectedFile);
+        }
     };
+
+// Pomocnicza funkcja do konwersji pliku na base64 (np. do wyświetlenia w <img> w /results)
+    const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
